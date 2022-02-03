@@ -18,6 +18,7 @@ app.use((req, res, next) => {
     res.set("Access-Control-Allow-Headers", "content-type")
     next()
 })
+
 app.use(express.json())
 
 
