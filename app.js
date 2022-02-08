@@ -1,6 +1,7 @@
 const apiRoutes = require('./routes/apiRoutes')
 const mongoose = require('mongoose')
 const express = require('express')
+const cors = require('cors')
 
 const app = require("express")()
 
@@ -12,12 +13,19 @@ mongoose.connect(dbURI)
     .catch(err => console.log(err))
 
 
-app.use((req, res, next) => {
-    res.set("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
-    res.set("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE")
-    res.set("Access-Control-Allow-Headers", "content-type")
-    next()
-})
+// app.use((req, res, next) => {
+//     res.set("Access-Control-Allow-Origin", "http://127.0.0.1:5500")
+//     res.set("Access-Control-Allow-Methods", "GET,POST,PATCH,DELETE")
+//     res.set("Access-Control-Allow-Headers", "content-type")
+//     next()
+// })
+
+const corsOptions = {
+    origin: "*",
+    methods:  "GET,POST,PATCH,DELETE",
+    allowedHeaders: 'content-type'
+}
+app.use(cors(corsOptions))
 
 app.use(express.json())
 
