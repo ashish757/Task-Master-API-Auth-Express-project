@@ -3,7 +3,7 @@ POST http://localhost:8080/api/task/create
 content-type: application/json
 
 {
-    "title": "abc",
+    "title": "",
     "description": "xyz"
 }
 
@@ -24,3 +24,36 @@ content-type: application/json
 
 ### DELETE TASK
 DELETE   http://localhost:8080/api/task/delete/61fa6f466c7d9aafa785ac61
+
+### POST login
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+    "name": "ashish",
+    "password": "abc"
+}
+
+### GET secret
+GET http://localhost:8080/secret
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYXNoaXNoIiwiaWF0IjoxNjQ0Mjk1MjY3LCJleHAiOjE2NDY4ODcyNjd9.EY7EcGLcYTWI46vQaJ77GapAW0q0Vlmdbw80Xox6lr4
+
+
+### POST user 
+POST http://localhost:8080/api/signup
+Content-Type: application/json
+
+{
+    "name": "ashish",
+    "email": "aaa@gmailc.com",
+    "password": "aaa"
+}
+
+### POST user 
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+    "email": "raj@gmailc.com",
+    "password": "admin"
+}

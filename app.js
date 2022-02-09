@@ -1,12 +1,15 @@
-const apiRoutes = require('./routes/apiRoutes')
+const taskRoutes = require('./routes/taskRoutes')
+const authRoutes = require('./routes/authRoutes')
 const mongoose = require('mongoose')
 const express = require('express')
 const cors = require('cors')
+const authMiddle = require("./middlewares/auth")
+const errorHandler = require('./middlewares/errorHandler')
 
 const app = require("express")()
 
 
-const dbURI = "mongodb+srv://ashish757:<passwords>@testing.kxnnb.mongodb.net/TaskMaster?retryWrites=true&w=majority"
+const dbURI = "mongodb+srv://ashish757:<password>@testing.kxnnb.mongodb.net/TaskMaster?retryWrites=true&w=majority"
 
 mongoose.connect(dbURI)
     .then(result => app.listen(8080))
@@ -33,6 +36,8 @@ app.use(express.json())
 app.get("/", (req, res) => {
     res.send(`
     <h1>Home</h1>
+    <h3>GET /api/login</h3>
+    <h3>GET /api/signup</h3>
     <a href="/api/tasks">
         <h3>GET /api/tasks</h3>
     </a>
@@ -43,7 +48,17 @@ app.get("/", (req, res) => {
     `)
 })
 
-app.use('/api', apiRoutes)
+app.use('/api', taskRoutes)
+app.use('/api', authRoutes)
+
+app.get('/secret', authMiddle, (req, res) => {
+    // console.log(req.user); iat and exp
+    res.json({msg: `hi, ${req.user.name}`, data: "your secret data"})
+})
+
+
+
+// app.use(errorHandler)
 
 app.all("*", (req, res) => {
     res.status(404).send("<strong><h1>404</h1></strong>")

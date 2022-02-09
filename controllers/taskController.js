@@ -22,7 +22,7 @@ const getTask = async (req, res) => {
     
 }
 
-const createTask = (req, res) => {
+const createTask = (req, res, next) => {
     const {title, description} = req.body
 
     const task = new Task ({
@@ -35,6 +35,7 @@ const createTask = (req, res) => {
         return res.json({status: true, msg: 'A new Task was created', task: result})
     })
     .catch((err) => {
+        // next(err)
         return res.json({status: false, msg: 'There was an error 😒', task: null})
     })
 
